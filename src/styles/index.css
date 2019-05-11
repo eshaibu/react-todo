@@ -1,0 +1,194 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #e6ecf0;
+}
+
+/*
+filter section
+ */
+.todo-filter-section {
+    background-color: #dfe4ea;
+    margin-top: 50px;
+}
+
+.todo-filter-section .form-control {
+    width: 150px;
+}
+
+.add-todo-btn {
+    font-size: 1.5rem;
+}
+
+.todo-header {
+    display: flex;
+    align-items: center;
+    min-height: 100px;
+    padding: 1rem 0;
+}
+
+.todo-filter-section .filters {
+    padding: 0.1rem 0.5rem;
+    margin-right: 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.todo-filter-section .filters-active {
+    background-color: #0652dd;
+    color: #fff;
+}
+
+.todo-filter-section .filters-label {
+    margin: 0;
+    margin-right: 0.5rem;
+    padding: 0.1rem 0.5rem;
+    font-weight: 700;
+}
+
+.todo-filter-section .filter-icon {
+    margin-right: 0.2rem;
+    opacity: 0.5;
+}
+
+/*
+    form
+ */
+.create-todo-form {
+    padding: 1rem 3rem;
+    text-align: right;
+}
+
+.create-todo-form input {
+    padding: 1rem 0;
+    width: 100%;
+    outline: 0;
+    border: 0;
+    font-size: 2rem;
+    background: none;
+}
+
+.create-todo-form input:focus + label::after {
+    width: 100%;
+    transition: 0.1s ease-in-out;
+}
+
+.create-todo-form label {
+    width: 100%;
+    position: relative;
+    margin: 0;
+}
+
+.create-todo-form label::after {
+    width: 0;
+    content: '';
+    height: 0.25rem;
+    background-color: #0652dd;
+    position: absolute;
+    transition: 0.1s ease-in-out;
+    top: -1rem;
+    left: 0;
+}
+
+.create-todo-form textarea {
+    padding: 1rem;
+    width: 100%;
+    height: 10rem;
+    outline: 0;
+    resize: none;
+    border-color: #dfe4ea;
+    background: none;
+}
+
+.create-todo-form textarea:focus {
+    border: 1px dashed #0652dd;
+}
+
+.create-todo-form textarea::placeholder,
+.create-todo-form input::placeholder {
+    opacity: 0.2;
+}
+
+.create-todo-form .btn {
+    background-color: #0652dd;
+    padding: 0.7rem 2rem;
+    margin-top: 0.5rem;
+    color: #fff;
+}
+
+.todo-form-section .create-todo-header {
+    padding: 1rem 3rem;
+    border-bottom: 1px solid #dfe4ea;
+    color: #0652dd;
+}
+
+/*
+    todoItems list
+ */
+.todo-item {
+    padding: 1rem;
+    border-bottom: 1px solid #dfe4ea;
+    transition: 0.5s ease-in-out;
+}
+
+.todo-item:hover {
+    background-color: rgba(255, 255, 255, 0.192);
+    transition: 0.5s ease-in-out;
+}
+
+.todo-list-section .create-todo-header {
+    color: #0652dd;
+}
+
+.todo-footer {
+    display: flex;
+    margin-top: 10px;
+}
+
+.todo-actions {
+    margin-right: auto;
+    overflow-wrap: break-word;
+}
+
+.todo-actions .svg-inline--fa {
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+.todo-time {
+    margin-left: 15px;
+}
+
+/*
+    tooltip css
+ */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
