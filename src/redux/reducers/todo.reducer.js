@@ -48,11 +48,24 @@ const todoReducer = (state = initialState, action) => {
         todoItem: action.payload,
       };
     case CREATE_TODO_ITEM_SUCCESS:
-    case UPDATE_TODO_ITEM_SUCCESS:
       return {
         ...state,
         loading: false,
         todoItem: action.payload,
+      };
+    case UPDATE_TODO_ITEM_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        todoItems: {
+          ...state.todoItems,
+          todos: state.todoItems.todos.filter((item) => {
+            if (item._id === action.payload._id) {
+              return action.payload.data;
+            }
+            return item;
+          }),
+        },
       };
     case DELETE_TODO_ITEM_SUCCESS:
       return {

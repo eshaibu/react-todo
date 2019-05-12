@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { array, bool, func, shape, object } from "prop-types";
 import SweetAlert from "react-bootstrap-sweetalert";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getTodoItems, deleteTodoItem } from "../../redux/actions/todo.actions";
+import { getTodoItems, deleteTodoItem, updateTodoItem } from "../../redux/actions/todo.actions";
 import { Filter } from "../common/Filter";
 import { TodoItem } from "./TodoItem";
 
@@ -15,20 +15,36 @@ import { TodoItem } from "./TodoItem";
  */
 class Home extends React.Component {
   state = {
+    completeStatus: false,
     id: "",
     showDeleteAlert: false,
+    showCompleteAlert: false,
+    showReopenAlert: false,
   };
 
   componentDidMount(props) {
     this.props.getTodoItems();
   }
 
-  handleDeleteIconClick = (id) => {
-    this.setState({ showDeleteAlert: true, id });
+  handleIconClick = (type, id) => {
+    if (type === "delete") {
+      this.setState({ showDeleteAlert: true, id });
+    }
+    if (type === "complete") {
+      this.setState({ showCompleteAlert: true, id });
+    }
+    if (type === "re-open") {
+      this.setState({ showReopenAlert: true, id });
+    }
   };
 
-  onCancelDelete = () => {
-    this.setState({ showDeleteAlert: false, id: "" });
+  closeAlert = () => {
+    this.setState({
+      showDeleteAlert: false,
+      showCompleteAlert: false,
+      showReopenAlert: false,
+      id: "",
+    });
   };
 
   onConfirmDelete = () => {
@@ -38,7 +54,15 @@ class Home extends React.Component {
     });
   };
 
+  onConfirmCompleteTodo = () => {
+    this.props.updateTodoItem({ completed: true }, this.state.id);
+    this.setState((state) => {
+      return { showCompleteAlert: false, id: "" };
+    });
+  };
+
   render() {
+    console.log(this.state.completeStatus);
     const {
       loading,
       todoItems: { todos },
@@ -65,7 +89,8 @@ class Home extends React.Component {
                     <TodoItem
                       key={index}
                       todoItem={todo}
-                      handleDelete={this.handleDeleteIconClick}
+                      completeStatus={this.state.completeStatus}
+                      handleIconClick={this.handleIconClick}
                     />
                   ))}
               </div>
@@ -84,9 +109,25 @@ class Home extends React.Component {
           cancelBtnCssClass="cancel-button"
           title="Are you sure?"
           onConfirm={this.onConfirmDelete}
-          onCancel={this.onCancelDelete}
+          onCancel={this.closeAlert}
         >
           You will not be able to retrieve if you delete this todo item
+        </SweetAlert>
+
+        <SweetAlert
+          warning
+          showCancel
+          show={this.state.showCompleteAlert}
+          closeOnClickOutside={false}
+          confirmBtnText="Yes"
+          confirmBtnBsStyle="success"
+          cancelBtnBsStyle="default"
+          cancelBtnCssClass="cancel-button"
+          title="Are you sure?"
+          onConfirm={this.onConfirmCompleteTodo}
+          onCancel={this.closeAlert}
+        >
+          Are you sure you want to complete this todo item
         </SweetAlert>
       </React.Fragment>
     );
@@ -96,6 +137,7 @@ class Home extends React.Component {
 Home.propTypes = {
   getTodoItems: func.isRequired,
   deleteTodoItem: func.isRequired,
+  updateTodoItem: func.isRequired,
   loading: bool.isRequired,
   todoItems: shape({
     todos: array,
@@ -109,7 +151,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ getTodoItems, deleteTodoItem }, dispatch);
+  bindActionCreators({ getTodoItems, deleteTodoItem, updateTodoItem }, dispatch);
 
 export default connect(
   mapStateToProps,
