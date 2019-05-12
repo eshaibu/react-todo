@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import selective from "../../images/selective.svg";
+import { func } from "prop-types";
 
-export const Filter = () => {
+export const Filter = (props) => {
+  const { queryTodoItems } = props;
   return (
     <section className="todo-filter-section">
       <div className="container">
@@ -16,11 +18,11 @@ export const Filter = () => {
               <span className="filters">Completed</span>
               <span className="filters filters-active">Active (Open)</span>
 
-              <select name="todo-order" className="ml-4 form-control">
-                <option value="1">Latest</option>
-                <option value="1">Oldest</option>
-                <option value="1">Tile - Ascending</option>
-                <option value="1">Tile - Descending</option>
+              <select name="todo-order" className="ml-4 form-control" onChange={queryTodoItems}>
+                <option value="LATEST">Latest</option>
+                <option value="OLDEST">Oldest</option>
+                <option value="TiTLE_ASC">Tile - Ascending</option>
+                <option value="TiTLE_DESC">Tile - Descending</option>
               </select>
             </div>
             <div className="col-md-3 col-sm-12 text-right">
@@ -33,4 +35,8 @@ export const Filter = () => {
       </div>
     </section>
   );
+};
+
+Filter.propTypes = {
+  queryTodoItems: func.isRequired,
 };

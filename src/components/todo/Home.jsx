@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getTodoItems, deleteTodoItem, updateTodoItem } from "../../redux/actions/todo.actions";
 import { Filter } from "../common/Filter";
 import { TodoItem } from "./TodoItem";
+import { getSortQuery } from "../../utils/helpers";
 
 /**
  * Home class declaration
@@ -25,6 +26,11 @@ class Home extends React.Component {
   componentDidMount(props) {
     this.props.getTodoItems();
   }
+
+  queryTodoItems = (event) => {
+    const query = getSortQuery(event.target.value);
+    this.props.getTodoItems(query);
+  };
 
   handleIconClick = (type, id) => {
     if (type === "delete") {
@@ -62,14 +68,13 @@ class Home extends React.Component {
   };
 
   render() {
-    console.log(this.state.completeStatus);
     const {
       loading,
       todoItems: { todos },
     } = this.props;
     return (
       <React.Fragment>
-        <Filter />
+        <Filter queryTodoItems={this.queryTodoItems} />
         <section className="todo-list-section mt-3">
           <div className="container">
             <div className="row">
