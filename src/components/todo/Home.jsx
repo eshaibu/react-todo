@@ -83,10 +83,8 @@ class Home extends React.Component {
   };
 
   render() {
-    const {
-      loading,
-      todoItems: { todos },
-    } = this.props;
+    const { loading, todoItems } = this.props;
+    const { todos } = todoItems;
     return (
       <React.Fragment>
         <Filter

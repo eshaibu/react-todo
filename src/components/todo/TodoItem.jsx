@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { func, object } from "prop-types";
+import ReadMore from "../common/ReadMore";
 
 /**
  * TodoItem class declaration
@@ -27,8 +28,15 @@ export class TodoItem extends React.Component {
     return (
       this.props.completeStatus === completed && (
         <div className="todo-item">
-          <h4 className="todo-title">{title}</h4>
-          <p className="desc m-0">{description}</p>
+          <h4 className={`todo-title ${completed ? "completed-title" : ""}`}>{title}</h4>
+          <ReadMore
+            divClass="m-0"
+            charLimit={100}
+            readMoreText="Read more"
+            readLessText="Read less"
+          >
+            {description}
+          </ReadMore>
           <div className="todo-footer">
             <div className="todo-actions">
               {!completed && (

@@ -43,6 +43,10 @@ filter section
 }
 
 .todo-filter-section .filters-active {
+    cursor: not-allowed;
+}
+
+.todo-filter-section .filters-active {
     background-color: #0652dd;
     color: #fff;
 }
@@ -202,6 +206,15 @@ filter section
 .cancel-button:hover{
     background-color: #e6e6e6;
     border-color: #adadad;
+}
+
+.readMoreText {
+    color: #0652dd;
+    cursor: pointer;
+}
+
+.completed-title {
+    text-decoration: line-through;
 }
 
 /*

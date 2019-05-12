@@ -17,15 +17,13 @@ export const Filter = (props) => {
               </span>
               <div
                 className={`filters ${completeStatus ? "filters-active" : ""}`}
-                onClick={toggleCompleteStatus}
-                disabled={completeStatus}
+                onClick={completeStatus ? () => {} : toggleCompleteStatus}
               >
                 Completed
               </div>
               <div
                 className={`filters ${!completeStatus ? "filters-active" : ""}`}
-                onClick={toggleCompleteStatus}
-                disabled={!completeStatus}
+                onClick={!completeStatus ? () => {} : toggleCompleteStatus}
               >
                 Active (Open)
               </div>
