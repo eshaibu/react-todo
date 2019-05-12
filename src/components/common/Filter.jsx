@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import selective from "../../images/selective.svg";
-import { func } from "prop-types";
+import { bool, func, string } from "prop-types";
 
 export const Filter = (props) => {
-  const { queryTodoItems } = props;
+  const { todoOrderSelected, completeStatus, queryTodoItems, toggleCompleteStatus } = props;
   return (
     <section className="todo-filter-section">
       <div className="container">
@@ -15,10 +15,27 @@ export const Filter = (props) => {
                 <img className="filter-icon" src={selective} alt="Filter icon" height="30" />
                 Filters:
               </span>
-              <span className="filters">Completed</span>
-              <span className="filters filters-active">Active (Open)</span>
+              <div
+                className={`filters ${completeStatus ? "filters-active" : ""}`}
+                onClick={toggleCompleteStatus}
+                disabled={completeStatus}
+              >
+                Completed
+              </div>
+              <div
+                className={`filters ${!completeStatus ? "filters-active" : ""}`}
+                onClick={toggleCompleteStatus}
+                disabled={!completeStatus}
+              >
+                Active (Open)
+              </div>
 
-              <select name="todo-order" className="ml-4 form-control" onChange={queryTodoItems}>
+              <select
+                name="todo-order"
+                className="ml-4 form-control"
+                onChange={queryTodoItems}
+                value={todoOrderSelected}
+              >
                 <option value="LATEST">Latest</option>
                 <option value="OLDEST">Oldest</option>
                 <option value="TiTLE_ASC">Tile - Ascending</option>
@@ -39,4 +56,7 @@ export const Filter = (props) => {
 
 Filter.propTypes = {
   queryTodoItems: func.isRequired,
+  toggleCompleteStatus: func.isRequired,
+  completeStatus: bool.isRequired,
+  todoOrderSelected: string,
 };

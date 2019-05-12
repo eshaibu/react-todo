@@ -59,7 +59,7 @@ export class TodoItem extends React.Component {
                 <span className="tooltiptext">Delete Item</span>
               </div>
             </div>
-            <div className="todo-time">{moment(createdAt).format("MMM D, YYYY")}</div>
+            <div className="todo-time">{moment(createdAt).format("MMM D, YYYY HH:mm:ss")}</div>
           </div>
         </div>
       )

@@ -16,6 +16,7 @@ import { getSortQuery } from "../../utils/helpers";
  */
 class Home extends React.Component {
   state = {
+    sort: "LATEST",
     completeStatus: false,
     id: "",
     showDeleteAlert: false,
@@ -28,8 +29,15 @@ class Home extends React.Component {
   }
 
   queryTodoItems = (event) => {
+    this.setState({ sort: event.target.value });
     const query = getSortQuery(event.target.value);
-    this.props.getTodoItems(query);
+    this.props.getTodoItems({ ...query, completedStatus: this.state.completeStatus });
+  };
+
+  toggleCompleteStatus = () => {
+    this.setState({ sort: "LATEST" });
+    this.props.getTodoItems({ completedStatus: !this.state.completeStatus });
+    this.setState({ completeStatus: !this.state.completeStatus });
   };
 
   handleIconClick = (type, id) => {
@@ -74,7 +82,12 @@ class Home extends React.Component {
     } = this.props;
     return (
       <React.Fragment>
-        <Filter queryTodoItems={this.queryTodoItems} />
+        <Filter
+          completeStatus={this.state.completeStatus}
+          toggleCompleteStatus={this.toggleCompleteStatus}
+          queryTodoItems={this.queryTodoItems}
+          todoOrderSelected={this.state.sort}
+        />
         <section className="todo-list-section mt-3">
           <div className="container">
             <div className="row">
