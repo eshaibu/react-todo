@@ -5,9 +5,13 @@ import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import './styles/index.css';
 import store from './redux/store';
+import webServiceInterceptor from './utils/web-service-interceptors';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 
+// axios interceptors
+webServiceInterceptor.requestInterceptors();
+webServiceInterceptor.responseInterceptors(store);
 
 ReactDOM.render(
   <Provider store={store}>
