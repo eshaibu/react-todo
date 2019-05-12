@@ -28,7 +28,8 @@ export class CreateTodo extends React.Component {
 
   render() {
     const { title, description } = this.state;
-    const { errors } = this.props.errorState;
+    const { errorState } = this.props;
+    const errors = errorState ? errorState.errors : null;
     return (
       <section className="todo-form-section mt-5 pt-5">
         <div className="container">
@@ -60,7 +61,7 @@ export class CreateTodo extends React.Component {
 
 CreateTodo.propTypes = {
   createTodoItem: func.isRequired,
-  errorState: object.isRequired,
+  errorState: object,
 };
 
 const mapStateToProps = (state) => ({

@@ -36,6 +36,7 @@ const appRequest = async (requestInfo, dispatch) => {
   } catch (error) {
     const { response } = error;
     if (response) {
+      toast.dismiss();
       toast.error(response.data.message);
       dispatch({ type: REQUEST_ERROR, payload: { data: response.data, triggeredBy } });
     }

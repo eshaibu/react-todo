@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const TodoItem = ({ todoItem }) => {
-  const { title, description, completed, createdAt } = todoItem;
+  const { title, description, completed, createdAt, _id } = todoItem;
   return (
     <div className="todo-item">
       <h4 className="todo-title">{title}</h4>
@@ -23,10 +24,11 @@ export const TodoItem = ({ todoItem }) => {
               <span className="tooltiptext">Re-open Todo</span>
             </div>
           )}
-          <div className="custom-tooltip">
+          {/*<Link className="custom-tooltip" to={`/todos/${_id}`}>*/}
+          <Link className="custom-tooltip" to={`/todos/${_id}/edit`}>
             <FontAwesomeIcon icon="edit" color="#0652dd" size="lg" />
-            <span className="tooltiptext">Complete Todo</span>
-          </div>
+            <span className="tooltiptext">Edit Todo</span>
+          </Link>
           <div className="custom-tooltip">
             <FontAwesomeIcon icon="trash-alt" color="red" size="lg" />
             <span className="tooltiptext">Complete Todo</span>
