@@ -1,13 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import 'bootstrap/dist/css/bootstrap.css';
-import { Provider } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
-import './styles/index.css';
-import store from './redux/store';
-import webServiceInterceptor from './utils/web-service-interceptors';
-import App from './components/App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "bootstrap/dist/css/bootstrap.css";
+import { Provider } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./styles/index.css";
+import store from "./redux/store";
+import webServiceInterceptor from "./utils/web-service-interceptors";
+import App from "./components/App";
+import * as serviceWorker from "./serviceWorker";
 
 // axios interceptors
 webServiceInterceptor.requestInterceptors();
@@ -18,7 +19,7 @@ ReactDOM.render(
     <App />
     <ToastContainer />
   </Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

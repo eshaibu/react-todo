@@ -22,8 +22,6 @@ export default {
       },
       function(error) {
         if (!error.response) {
-          let formattedError = { error: { message: "Server down" } };
-          formattedError.triggeredBy = "SERVER_DOWN";
           store.dispatch({
             type: REQUEST_ERROR,
             payload: { triggeredBy: "SERVER_DOWN", data: { message: "Server down" } },

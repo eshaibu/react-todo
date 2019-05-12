@@ -22,8 +22,10 @@ const appRequest = async (requestInfo, dispatch) => {
     console.log(response, "response");
     dispatch({ type: onSuccess, payload: response });
   } catch (error) {
-    if (error.response) {
-      dispatch({ type: onFailure, payload: error.response });
+    const { response } = error;
+    if (response) {
+      toast.error(response.data.message);
+      dispatch({ type: onFailure, payload: { data: response.data, triggeredBy } });
     } else {
       toast.error("Error processing request");
     }
