@@ -18,6 +18,10 @@ export class TodoItem extends React.Component {
     this.props.handleIconClick("complete", this.props.todoItem._id);
   };
 
+  handleReOpen = () => {
+    this.props.handleIconClick("re-open", this.props.todoItem._id);
+  };
+
   render() {
     const { title, description, completed, createdAt, _id } = this.props.todoItem;
     return (
@@ -41,7 +45,7 @@ export class TodoItem extends React.Component {
 
               {completed && (
                 <div className="custom-tooltip">
-                  <FontAwesomeIcon icon="redo-alt" size="lg" />
+                  <FontAwesomeIcon icon="redo-alt" size="lg" onClick={this.handleReOpen} />
                   <span className="tooltiptext">Re-open Todo</span>
                 </div>
               )}

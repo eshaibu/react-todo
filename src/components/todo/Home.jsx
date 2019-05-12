@@ -21,7 +21,7 @@ class Home extends React.Component {
     id: "",
     showDeleteAlert: false,
     showCompleteAlert: false,
-    showReopenAlert: false,
+    showReOpenAlert: false,
   };
 
   componentDidMount(props) {
@@ -48,7 +48,7 @@ class Home extends React.Component {
       this.setState({ showCompleteAlert: true, id });
     }
     if (type === "re-open") {
-      this.setState({ showReopenAlert: true, id });
+      this.setState({ showReOpenAlert: true, id });
     }
   };
 
@@ -56,7 +56,7 @@ class Home extends React.Component {
     this.setState({
       showDeleteAlert: false,
       showCompleteAlert: false,
-      showReopenAlert: false,
+      showReOpenAlert: false,
       id: "",
     });
   };
@@ -72,6 +72,13 @@ class Home extends React.Component {
     this.props.updateTodoItem({ completed: true }, this.state.id);
     this.setState((state) => {
       return { showCompleteAlert: false, id: "" };
+    });
+  };
+
+  onConfirmReOpenTodo = () => {
+    this.props.updateTodoItem({ completed: false }, this.state.id);
+    this.setState((state) => {
+      return { showReOpenAlert: false, id: "" };
     });
   };
 
@@ -146,6 +153,22 @@ class Home extends React.Component {
           onCancel={this.closeAlert}
         >
           Are you sure you want to complete this todo item
+        </SweetAlert>
+
+        <SweetAlert
+          warning
+          showCancel
+          show={this.state.showReOpenAlert}
+          closeOnClickOutside={false}
+          confirmBtnText="Yes"
+          confirmBtnBsStyle="success"
+          cancelBtnBsStyle="default"
+          cancelBtnCssClass="cancel-button"
+          title="Are you sure?"
+          onConfirm={this.onConfirmReOpenTodo}
+          onCancel={this.closeAlert}
+        >
+          Are you sure you want to re-open this todo item
         </SweetAlert>
       </React.Fragment>
     );
