@@ -1,42 +1,69 @@
-import React, { Component } from 'react';
-import { Route, Router, Switch, Redirect } from 'react-router-dom';
-import history from '../utils/history';
+import React, { Component } from "react";
+import { Route, Router, Switch, Redirect } from "react-router-dom";
+import { func, shape, string, object } from "prop-types";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import history from "../utils/history";
+import { dispatchAction } from "../redux/actions/todo.actions";
+import { CLEAR_ERROR } from "../redux/actions/action-types";
 import { Header } from "./common/Header";
-import { Todo } from "./todo/Todo";
+import Home from "./todo/Home";
 import { CreateTodo } from "./todo/CreateTodo";
 import { EditTodo } from "./todo/EditTodo";
-
 
 /**
  * App class declaration
  * @class App
  * @extends {React.Component}
  */
-class App extends Component {
+export class App extends Component {
   constructor(props) {
     super(props);
 
     history.listen(() => {
-      console.log('route changed')
-      // this.props.dispatchAction();
+      this.props.dispatchAction({ type: CLEAR_ERROR });
     });
   }
 
   render() {
+    const { triggeredBy: errorTrigger } = this.props.errorState;
     return (
       <Router history={history}>
-        <main className="pb-5">
-          <Header/>
-          <Switch>
-            <Route exact path="/" component={Todo} />
-            <Route exact path="/todos/create" component={CreateTodo} />
-            <Route exact path="/todos/:todoId/edit" component={EditTodo} />
-            <Redirect to="/" />
-          </Switch>
-        </main>
+        {errorTrigger !== "SERVER_DOWN" ? (
+          <main className="pb-5">
+            <Header />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/todos/create" component={CreateTodo} />
+              <Route exact path="/todos/:todoId/edit" component={EditTodo} />
+              <Redirect to="/" />
+            </Switch>
+          </main>
+        ) : (
+          <div className="row h-100 justify-content-center align-items-center">
+            <h1 className="font-weight-bold">APP DOWN. TRY LATER</h1>
+          </div>
+        )}
       </Router>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  dispatchAction: func.isRequired,
+  errorState: shape({
+    data: object,
+    triggeredBy: string.isRequired,
+  }).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  errorState: state.todoReducer.error,
+});
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({ dispatchAction }, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

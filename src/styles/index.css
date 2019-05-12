@@ -1,3 +1,7 @@
+html, body, #root {
+    height: 100%;
+}
+
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -144,6 +148,22 @@ filter section
     color: #0652dd;
 }
 
+.todo-list-section .fa-spinner {
+    color: #0652dd;
+    animation: spinner-rotation 3s infinite linear;
+    margin-top: 10px;
+    text-align: center;
+}
+
+@keyframes spinner-rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
+
 .todo-footer {
     display: flex;
     margin-top: 10px;
@@ -155,7 +175,7 @@ filter section
 }
 
 .todo-actions .svg-inline--fa {
-    margin-right: 12px;
+    margin-right: 20px;
     cursor: pointer;
 }
 
@@ -164,15 +184,14 @@ filter section
 }
 
 /*
-    tooltip css
+    custom tooltip css
  */
-.tooltip {
+.custom-tooltip {
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted black;
 }
 
-.tooltip .tooltiptext {
+.custom-tooltip .tooltiptext {
     visibility: hidden;
     width: 120px;
     background-color: black;
@@ -189,6 +208,7 @@ filter section
     margin-left: -60px;
 }
 
-.tooltip:hover .tooltiptext {
+.custom-tooltip:hover .tooltiptext {
     visibility: visible;
 }
+
