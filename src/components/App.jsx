@@ -3,6 +3,14 @@ import { Route, Router, Switch, Redirect } from "react-router-dom";
 import { func, shape, string, object } from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faCheckSquare,
+  faEdit,
+  faRedoAlt,
+  faTrashAlt,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
 import history from "../utils/history";
 import { dispatchAction } from "../redux/actions/todo.actions";
 import { CLEAR_ERROR } from "../redux/actions/action-types";
@@ -10,6 +18,8 @@ import { Header } from "./common/Header";
 import Home from "./todo/Home";
 import { CreateTodo } from "./todo/CreateTodo";
 import { EditTodo } from "./todo/EditTodo";
+
+library.add(faSpinner, faCheckSquare, faEdit, faRedoAlt, faTrashAlt);
 
 /**
  * App class declaration

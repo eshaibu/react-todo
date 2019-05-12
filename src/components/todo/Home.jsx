@@ -3,7 +3,6 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { array, bool, func, shape, object } from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { getTodoItems } from "../../redux/actions/todo.actions";
 import { Filter } from "../common/Filter";
 import { TodoItem } from "./TodoItem";
@@ -31,7 +30,7 @@ class Home extends React.Component {
             <div className="row">
               <div className="col-md-8 offset-md-2">
                 <h2 className="create-todo-header mb-2 pl-3">Todo list</h2>
-                {loading && <FontAwesomeIcon icon={faSpinner} size="6x" />}
+                {loading && <FontAwesomeIcon icon="spinner" size="6x" />}
 
                 {!loading && todos.length === 0 && (
                   <div className="alert alert-danger" role="alert">
