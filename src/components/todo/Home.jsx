@@ -3,6 +3,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { array, bool, func, shape, object } from "prop-types";
 import SweetAlert from "react-bootstrap-sweetalert";
+import Pagination from "react-js-pagination";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getTodoItems, deleteTodoItem, updateTodoItem } from "../../redux/actions/todo.actions";
 import { Filter } from "../common/Filter";
@@ -38,6 +39,15 @@ class Home extends React.Component {
     this.setState({ sort: "LATEST" });
     this.props.getTodoItems({ completedStatus: !this.state.completeStatus });
     this.setState({ completeStatus: !this.state.completeStatus });
+  };
+
+  handlePageChange = (pageNumber) => {
+    const query = getSortQuery(this.state.sort);
+    this.props.getTodoItems({
+      ...query,
+      completedStatus: this.state.completeStatus,
+      page: pageNumber,
+    });
   };
 
   handleIconClick = (type, id) => {
@@ -116,6 +126,18 @@ class Home extends React.Component {
                       handleIconClick={this.handleIconClick}
                     />
                   ))}
+
+                {!loading && todoItems.paginationMeta && (
+                  <Pagination
+                    activePage={todoItems.paginationMeta.currentPage}
+                    itemsCountPerPage={todoItems.paginationMeta.pageSize}
+                    totalItemsCount={todoItems.paginationMeta.totalCount}
+                    pageRangeDisplayed={5}
+                    onChange={this.handlePageChange}
+                    itemClass="page-item"
+                    linkClass="page-link"
+                  />
+                )}
               </div>
             </div>
           </div>

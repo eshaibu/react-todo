@@ -217,6 +217,10 @@ filter section
     text-decoration: line-through;
 }
 
+.pagination {
+    margin-top: 15px;
+}
+
 /*
     custom tooltip css
  */
