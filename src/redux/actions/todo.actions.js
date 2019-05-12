@@ -8,10 +8,13 @@ import {
   UPDATE_TODO_ITEM_SUCCESS,
   GET_TODO_ITEM,
   GET_TODO_ITEM_SUCCESS,
+  DELETE_TODO_ITEM,
+  DELETE_TODO_ITEM_SUCCESS,
+  CLEAR_ERROR,
 } from "./action-types";
 
-export const dispatchAction = (typeWithPayload) => (dispatch) => {
-  dispatch({ ...typeWithPayload });
+export const clearError = () => (dispatch) => {
+  dispatch({ type: CLEAR_ERROR });
 };
 
 export const createTodoItem = (data) => async (dispatch) => {
@@ -62,6 +65,18 @@ export const getTodoItems = (query = null) => async (dispatch) => {
       url: "/todos",
       onSuccess: GET_TODO_ITEMS_SUCCESS,
       triggeredBy: GET_TODO_ITEMS,
+    },
+    dispatch
+  );
+};
+
+export const deleteTodoItem = (id) => async (dispatch) => {
+  await appRequest(
+    {
+      method: "delete",
+      url: `/todos/${id}`,
+      onSuccess: DELETE_TODO_ITEM_SUCCESS,
+      triggeredBy: DELETE_TODO_ITEM,
     },
     dispatch
   );

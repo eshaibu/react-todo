@@ -12,8 +12,7 @@ import {
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import history from "../utils/history";
-import { dispatchAction } from "../redux/actions/todo.actions";
-import { CLEAR_ERROR } from "../redux/actions/action-types";
+import { clearError } from "../redux/actions/todo.actions";
 import { Header } from "./common/Header";
 import Home from "./todo/Home";
 import CreateTodo from "./todo/CreateTodo";
@@ -31,7 +30,7 @@ export class App extends Component {
     super(props);
 
     history.listen(() => {
-      this.props.dispatchAction({ type: CLEAR_ERROR });
+      this.props.clearError();
     });
   }
 
@@ -60,7 +59,7 @@ export class App extends Component {
 }
 
 App.propTypes = {
-  dispatchAction: func.isRequired,
+  clearError: func.isRequired,
   errorState: shape({
     data: object,
     triggeredBy: string.isRequired,
@@ -71,7 +70,7 @@ const mapStateToProps = (state) => ({
   errorState: state.todoReducer.error,
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ dispatchAction }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ clearError }, dispatch);
 
 export default connect(
   mapStateToProps,

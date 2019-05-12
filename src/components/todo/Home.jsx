@@ -2,8 +2,9 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { array, bool, func, shape, object } from "prop-types";
+import SweetAlert from "react-bootstrap-sweetalert";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getTodoItems } from "../../redux/actions/todo.actions";
+import { getTodoItems, deleteTodoItem } from "../../redux/actions/todo.actions";
 import { Filter } from "../common/Filter";
 import { TodoItem } from "./TodoItem";
 
@@ -13,9 +14,29 @@ import { TodoItem } from "./TodoItem";
  * @extends {React.Component}
  */
 class Home extends React.Component {
+  state = {
+    id: "",
+    showDeleteAlert: false,
+  };
+
   componentDidMount(props) {
     this.props.getTodoItems();
   }
+
+  handleDeleteIconClick = (id) => {
+    this.setState({ showDeleteAlert: true, id });
+  };
+
+  onCancelDelete = () => {
+    this.setState({ showDeleteAlert: false, id: "" });
+  };
+
+  onConfirmDelete = () => {
+    this.props.deleteTodoItem(this.state.id);
+    this.setState((state) => {
+      return { showDeleteAlert: false, id: "" };
+    });
+  };
 
   render() {
     const {
@@ -40,11 +61,33 @@ class Home extends React.Component {
 
                 {!loading &&
                   todos.length > 0 &&
-                  todos.map((todo, index) => <TodoItem key={index} todoItem={todo} />)}
+                  todos.map((todo, index) => (
+                    <TodoItem
+                      key={index}
+                      todoItem={todo}
+                      handleDelete={this.handleDeleteIconClick}
+                    />
+                  ))}
               </div>
             </div>
           </div>
         </section>
+
+        <SweetAlert
+          warning
+          showCancel
+          show={this.state.showDeleteAlert}
+          closeOnClickOutside={false}
+          confirmBtnText="Yes, delete"
+          confirmBtnBsStyle="danger"
+          cancelBtnBsStyle="default"
+          cancelBtnCssClass="cancel-button"
+          title="Are you sure?"
+          onConfirm={this.onConfirmDelete}
+          onCancel={this.onCancelDelete}
+        >
+          You will not be able to retrieve if you delete this todo item
+        </SweetAlert>
       </React.Fragment>
     );
   }
@@ -52,6 +95,7 @@ class Home extends React.Component {
 
 Home.propTypes = {
   getTodoItems: func.isRequired,
+  deleteTodoItem: func.isRequired,
   loading: bool.isRequired,
   todoItems: shape({
     todos: array,
@@ -64,7 +108,8 @@ const mapStateToProps = (state) => ({
   loading: state.todoReducer.loading,
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ getTodoItems }, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ getTodoItems, deleteTodoItem }, dispatch);
 
 export default connect(
   mapStateToProps,

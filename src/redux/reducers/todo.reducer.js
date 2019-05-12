@@ -7,6 +7,7 @@ import {
   UPDATE_TODO_ITEM_SUCCESS,
   GET_TODO_ITEM,
   GET_TODO_ITEM_SUCCESS,
+  DELETE_TODO_ITEM_SUCCESS,
   CLEAR_ERROR,
   REQUEST_ERROR,
 } from "../actions/action-types";
@@ -52,6 +53,14 @@ const todoReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         todoItem: action.payload,
+      };
+    case DELETE_TODO_ITEM_SUCCESS:
+      return {
+        ...state,
+        todoItems: {
+          ...state.todoItems,
+          todos: state.todoItems.todos.filter((item) => item._id !== action.payload._id),
+        },
       };
     case REQUEST_ERROR:
       return {

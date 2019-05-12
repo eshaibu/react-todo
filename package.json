@@ -12,6 +12,7 @@
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
+    "react-bootstrap-sweetalert": "^4.4.1",
     "react-dom": "^16.8.6",
     "react-js-pagination": "^3.0.2",
     "react-redux": "^7.0.3",

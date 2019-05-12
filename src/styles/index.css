@@ -193,6 +193,17 @@ filter section
     margin-left: 15px;
 }
 
+.cancel-button{
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.cancel-button:hover{
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+
 /*
     custom tooltip css
  */

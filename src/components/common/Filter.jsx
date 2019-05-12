@@ -14,11 +14,13 @@ export const Filter = () => {
                 Filters:
               </span>
               <span className="filters">Completed</span>
-              <span className="filters filters-active">Active</span>
+              <span className="filters filters-active">Active (Open)</span>
 
               <select name="todo-order" className="ml-4 form-control">
                 <option value="1">Latest</option>
                 <option value="1">Oldest</option>
+                <option value="1">Tile - Ascending</option>
+                <option value="1">Tile - Descending</option>
               </select>
             </div>
             <div className="col-md-3 col-sm-12 text-right">
