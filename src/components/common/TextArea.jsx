@@ -5,6 +5,7 @@ export const TextArea = ({ error, onChange, value }) => {
   return (
     <React.Fragment>
       <textarea
+        name="description"
         className={`${error ? "error" : ""}`}
         onChange={onChange}
         value={value}

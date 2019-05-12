@@ -1,7 +1,8 @@
 import {
   GET_TODO_ITEMS,
   GET_TODO_ITEMS_SUCCESS,
-  GET_TODO_ITEMS_FAILURE,
+  CREATE_TODO_ITEM,
+  CREATE_TODO_ITEM_SUCCESS,
   CLEAR_ERROR,
   REQUEST_ERROR,
 } from "../actions/action-types";
@@ -14,7 +15,7 @@ const initialState = {
   },
   todoItem: null,
   error: {
-    data: null,
+    data: {},
     triggeredBy: "",
   },
 };
@@ -22,6 +23,7 @@ const initialState = {
 const todoReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_TODO_ITEMS:
+    case CREATE_TODO_ITEM:
       return {
         ...state,
         loading: true,
@@ -32,7 +34,12 @@ const todoReducer = (state = initialState, action) => {
         loading: false,
         todoItems: action.payload,
       };
-    case GET_TODO_ITEMS_FAILURE:
+    case CREATE_TODO_ITEM_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        todoItem: action.payload,
+      };
     case REQUEST_ERROR:
       return {
         ...state,

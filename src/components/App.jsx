@@ -16,7 +16,7 @@ import { dispatchAction } from "../redux/actions/todo.actions";
 import { CLEAR_ERROR } from "../redux/actions/action-types";
 import { Header } from "./common/Header";
 import Home from "./todo/Home";
-import { CreateTodo } from "./todo/CreateTodo";
+import CreateTodo from "./todo/CreateTodo";
 import { EditTodo } from "./todo/EditTodo";
 
 library.add(faSpinner, faCheckSquare, faEdit, faRedoAlt, faTrashAlt);
