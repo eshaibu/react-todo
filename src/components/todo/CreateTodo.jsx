@@ -1,5 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import { TitleInput } from "../common/TitleInput";
+import { TextArea } from "../common/TextArea";
 
 export const CreateTodo = () => {
   return (
@@ -8,14 +10,13 @@ export const CreateTodo = () => {
         <div className="row">
           <div className="col-md-8 offset-md-2 bg-white">
             <h2 className="create-todo-header m-0">Create new todo</h2>
-            <form className="create-todo-form">
-              <input type="text" placeholder="Title"/>
-              <label/>
-              <textarea
-                placeholder="Todo description goes here..."
-              />
+            <form className="todo-form">
+              <TitleInput onChange={() => {}} value="" />
+              <TextArea error="Why Error" />
               <Link to="/">
-                <button className="btn" type="button">Create</button>
+                <button className="btn" type="button">
+                  Create
+                </button>
               </Link>
             </form>
           </div>
