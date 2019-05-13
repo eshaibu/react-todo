@@ -38,11 +38,6 @@ const todoReducer = (state = initialState, action) => {
         todoItems: action.payload,
       };
     case GET_TODO_ITEM_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        todoItem: action.payload,
-      };
     case CREATE_TODO_ITEM_SUCCESS:
       return {
         ...state,
@@ -55,9 +50,9 @@ const todoReducer = (state = initialState, action) => {
         loading: false,
         todoItems: {
           ...state.todoItems,
-          todos: state.todoItems.todos.filter((item) => {
+          todos: state.todoItems.todos.map((item) => {
             if (item._id === action.payload._id) {
-              return action.payload.data;
+              return { ...item, ...action.payload };
             }
             return item;
           }),
