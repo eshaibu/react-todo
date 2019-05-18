@@ -15,7 +15,7 @@ import { getSortQuery } from "../../utils/helpers";
  * @class Home
  * @extends {React.Component}
  */
-class Home extends React.Component {
+export class Home extends React.Component {
   state = {
     sort: "LATEST",
     completeStatus: false,
@@ -36,9 +36,8 @@ class Home extends React.Component {
   };
 
   toggleCompleteStatus = () => {
-    this.setState({ sort: "LATEST" });
+    this.setState({ sort: "LATEST", completeStatus: !this.state.completeStatus });
     this.props.getTodoItems({ completedStatus: !this.state.completeStatus });
-    this.setState({ completeStatus: !this.state.completeStatus });
   };
 
   handlePageChange = (pageNumber) => {
